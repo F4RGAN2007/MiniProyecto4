@@ -32,6 +32,7 @@ public class App {
     }
 
         double promedio = registro.calcularPromedio();
+        //Método sencillo para mostrar texto en terminal
         System.out.printf("Promedio de calificaciones: %.2f%n", promedio);
 
         List<String> superiores = registro.EstudiantesSuperiores(promedio);
