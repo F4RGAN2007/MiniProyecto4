@@ -18,7 +18,10 @@ public class ManejoInventario {
            long fileLength = buffer.length();
            long pointer = fileLength;
            buffer.seek(pointer);
-           buffer.writeChars(producto.getID() + "," + producto.getNombre() + "," + producto.getCantidad()+"\n");
+           String escritura = producto.getID() + "," + producto.getNombre() + "," + producto.getCantidad() + "\n";
+           byte[] escrituraBt = escritura.getBytes("UTF-8");
+           buffer.write(escrituraBt);
+
             
             buffer.close();
         }catch(FileNotFoundException e){
