@@ -100,12 +100,20 @@ public class App {
         return false;
     }
 
+    public static void borrarProducto() {
+        ManejoInventario manejoInventario = new ManejoInventario();
+        System.out.println("Ingrese ID del producto a borrar: ");
+        Scanner scanner = new Scanner(System.in);
+        manejoInventario.BorrarProducto(scanner.nextLine());
+    }
+
     public static void menu(){
         byte opc = 1;
         while(opc != 0){
             System.out.println("1. Ingresar producto");
             System.out.println("2. Buscar producto");
             System.out.println("3. Editar cantidad de un producto");
+            System.out.println("4. Borrar producto");
             System.out.println("0. Salir");
             Scanner scanner = new Scanner(System.in);
             opc = scanner.nextByte();
@@ -113,6 +121,7 @@ public class App {
                 case 1: ingresar(); break;
                 case 2: busquedaID(); break;
                 case 3: EditarCantidad(); break;
+                case 4: borrarProducto(); break;
                 default:
                     break;
             }
