@@ -1,3 +1,4 @@
 1,carne,20
 50,frijoles,20
 4,caca,20
+3,agua,25

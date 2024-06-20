@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -172,8 +175,53 @@ public class ManejoInventario {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+    }
 
+    public static void BorrarProducto(String ID) {
+        try {
+            File fileinventario = new File("punto2/files/inventario.txt");
+            File fileinventarioID = new File("punto2/files/inventarioID.txt");
 
+            RandomAccessFile bufferInventario = new RandomAccessFile(fileinventario, "rw");
+            RandomAccessFile bufferInventarioID = new RandomAccessFile(fileinventarioID, "rw");
+
+            List<String> inventarioLineas = new ArrayList<>();
+            String linea;
+
+            while ((linea = bufferInventario.readLine()) != null) {
+                inventarioLineas.add(linea);
+            }
+
+            List<String> inventarioIDLineas = new ArrayList<>();
+            StringBuffer idBuffer = new StringBuffer();
+
+            while ((linea = bufferInventarioID.readLine()) != null) {
+                idBuffer.append(linea);
+            }
+            String[] ids = idBuffer.toString().split(",");
+            inventarioIDLineas.addAll(Arrays.asList(ids));
+
+            int indiceEliminar = inventarioIDLineas.indexOf(ID);
+
+            if (indiceEliminar != -1) {
+                inventarioLineas.remove(indiceEliminar);
+                inventarioIDLineas.remove(ID);
+            }
+
+            bufferInventario.setLength(0);
+            for (String line : inventarioLineas) {
+                bufferInventario.writeBytes(line + "\n");
+            }
+
+            bufferInventarioID.setLength(0);
+            String newIDData = String.join(",", inventarioIDLineas);
+            bufferInventarioID.writeBytes(newIDData + ",");
+
+            bufferInventario.close();
+            bufferInventarioID.close();
+            System.out.println("Producto borrado con éxito.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
